@@ -5,7 +5,7 @@ import AppBody from './components/Body';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div id="app">
       <AppHeader />
       <AppBody />
     </div>

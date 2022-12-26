@@ -1,6 +1,11 @@
+import OSMap from "../OSMap";
+
 const Dashboard = () => {
 	return (
-		<div>Dashboard</div>
+		<div id="app-dashboard">
+			Dashboard
+			<OSMap />
+		</div>
 	)
 }
 
