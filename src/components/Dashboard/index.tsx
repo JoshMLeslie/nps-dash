@@ -1,12 +1,12 @@
-import OSMap from "../OSMap";
+import ParkMap from '../ParkMap';
 
 const Dashboard = () => {
 	return (
 		<div id="app-dashboard">
 			Dashboard
-			<OSMap />
+			<ParkMap />
 		</div>
-	)
-}
+	);
+};
 
 export default Dashboard;

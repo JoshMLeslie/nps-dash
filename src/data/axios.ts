@@ -16,6 +16,6 @@ const NPS_URL = 'https://developer.nps.gov/api/v1/parks';
 export const axiosNPSInst = axios.create({
 	baseURL: NPS_URL,
 	headers: {
-		'X-Api-Key': process.env.NPS_API,
+		'X-Api-Key': process.env.REACT_APP_NPS_API,
 	},
 });

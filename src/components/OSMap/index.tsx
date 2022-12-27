@@ -1,4 +1,5 @@
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
+import React, {ReactPropTypes} from 'react';
+import {MapContainer, PopupProps, TileLayer} from 'react-leaflet';
 
 const Attribution =
 	'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -8,30 +9,38 @@ export interface OSMapProps {
 	markers?: {
 		lat: number;
 		lng: number;
-		Popup?: typeof Popup;
+		popupProps?: PopupProps;
 	}[];
 	center?: {
 		lat: number;
 		lng: number;
 	};
-  zoom?: number;
+	zoom?: number;
 }
 
-const OSMap: React.FC<OSMapProps> = ({center, markers, zoom = 13}) => {
-	const {lat = 0, lng = 0} = center || {};
+const OSMapHOC = <P extends object = {}>({
+	children,
+	center,
+	zoom = 13,
+	...props
+}: {children: React.ReactElement} & OSMapProps): React.ReactElement<P> | null => {
+	if (!center) {
+		console.error('Must set map center');
+		return null;
+	}
 	return (
 		<MapContainer
 			id="app-map"
-			center={[lat, lng]}
+			placeholder="Loading map"
+			center={[center.lat, center.lng]}
 			zoom={zoom}
 			scrollWheelZoom={false}
+			{...props}
 		>
 			<TileLayer attribution={Attribution} url={TileUrl} />
-			{markers?.map(({lat, lng, Popup}) => (
-				<Marker position={[lat, lng]}>{Popup && <Popup />}</Marker>
-			))}
+			{children}
 		</MapContainer>
 	);
 };
 
-export default OSMap;
+export default OSMapHOC;
